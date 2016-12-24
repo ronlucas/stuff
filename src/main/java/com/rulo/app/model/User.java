@@ -1,50 +1,67 @@
 package com.rulo.app.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
+import javax.persistence.Transient;
 @Entity
-@Table(name = "USUARIO", schema="PRUEBA")
+@Table(name = "USER" ,schema="PRUEBA")
 public class User {
+    private Long id;
+    private String username;
+    private String password;
+    private String passwordConfirm;
+    private Set<Role> roles;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long getId() {
+        return id;
+    }
 
-	private String fullName;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	private String userName;
+    public String getUsername() {
+        return username;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getFullName() {
-		return fullName;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
+    @Transient
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
 
-	public String getUserName() {
-		return userName;
-	}
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
