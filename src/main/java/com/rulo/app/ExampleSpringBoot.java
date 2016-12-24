@@ -17,4 +17,5 @@ public class ExampleSpringBoot {
 	    public static void main(String[] args) throws Exception {
 	        SpringApplication.run(ExampleSpringBoot.class, args);
 	    }
+	    
 }
